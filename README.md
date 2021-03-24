@@ -6,10 +6,10 @@
 
 <table>
   <tr>
-    <td><img src="https://i.ibb.co/74S5zBF/manage-file.png"></td>
+    <td><img src="https://i.ibb.co/PmcJFgJ/front-to-sequelize.png"></td>
     <td>  
-      <h1>@desco/manage-file</h1>
-      Pacote que permite alterar o conteúdo de um arquivo com uma única função.
+      <h1>@desco/front-to-sequelize</h1>
+      Pacote que permite interpretar no [SequelizeJS](https://sequelize.org/) informações passadas pelo frontend via QueryString.
       <br /><br />
       <div align="center">
         <img alt="Licença MIT" src="https://img.shields.io/static/v1?label=Licença&message=MIT&color=green&style=for-the-badge">
@@ -41,7 +41,7 @@
 ## ⚙️ Instalação
 
 ```bash
-npm install --save @desco/manage-file
+npm install --save @desco/front-to-sequelize
 ```
 
 > Note que será necessário ter o **NPM** instalado para o comando funcionar.
@@ -53,7 +53,7 @@ npm install --save @desco/manage-file
 ## 📦 Importação
 
 ```js
-const manageFile = require("@desco/manage-file");
+const frontToSequelize = require("@desco/front-to-sequelize");
 ```
 
 ---
@@ -62,45 +62,23 @@ const manageFile = require("@desco/manage-file");
 
 ## 📚 Como Usar
 
-### Carrega conteúdo de um arquivo
+No frontend, envie para o backend uma querystring com as informações que deseja que o [SequelizeJS](https://sequelize.org/) receba.
+
+Essa querystring deverá estar no mesmo formato da documentação do [SequelizeJS](https://sequelize.org/), com algumas diferenças que serão listadas abaixo:
+
+- **Operadores -** Quando precisar utilizar algum operador, utilize o prefixo `Op.` seguido do nome do operador desejado. Por exemplo: `Op.or`;
+- **Funções -** Quando precisar utilizar alguma função, utilize o prefixo `Fn.` seguido do nome da função desejada com os parâmetros entre parênteses. Por exemplo: `Fn.max(p1, p2, p3, ...., p50)`;
+- **Colunas -** Quando precisar selecionar alguma coluna, utilize `Col()` contendo nos parênteses o nome da coluna desejada. Por exemplo: `Col(name)`;
+
+---
+
+No backend, receba e trate a querystring com o `frontToSequelize` para em seguida utilizar no [SequelizeJS](https://sequelize.org/), por exemplo:
 
 ```js
-manageFile.load("./demo_file.txt");
-```
+const params = frontToSequelize(queryString);
 
-### Salva novo conteúdo no arquivo (sobrescreve o conteúdo atual)
-
-```js
-manageFile.save("./demo_file.txt", "New Content");
-```
-
-### Edita o conteúdo atual do arquivo
-
-```js
-manageFile.edit("./demo_file.txt", (content) => {
-  return content.toUpperCase();
-});
-```
-
-### Carrega o JSON presente em um arquivo
-
-```js
-manageFile.loadJson("demo_json.json");
-```
-
-### Salva novo JSON no arquivo (sobrescreve o JSON atual)
-
-```js
-manageFile.saveJson("demo_json.json", { title: "New Title" });
-```
-
-### Edita o JSON atual do arquivo
-
-```js
-manageFile.editJson("demo_json.json", (json) => {
-  json.title = json.title.toUpperCase();
-
-  return json;
+ModelSequelize.findAndCountAll(params).then((result) => {
+  console.log(result);
 });
 ```
 

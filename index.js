@@ -151,7 +151,7 @@ class ParseOrder {
   }
 
   fn (fn) {
-    if (typeof fn !== 'string' || fn.split('.')[0] !== 'fn') return fn
+    if (typeof fn !== 'string' || fn.split('.')[0].toLowerCase() !== 'fn') return fn
 
     fn = fn.split('.').slice(1).join('.')
 
@@ -215,7 +215,7 @@ class ParseOrder {
   }
 
   col (col) {
-    if (typeof col !== 'string' || col.split('(')[0] !== 'col') return col
+    if (typeof col !== 'string' || col.split('(')[0].toLowerCase() !== 'col') return col
 
     col =  col.split('(')[1].split(')')[0]
 
