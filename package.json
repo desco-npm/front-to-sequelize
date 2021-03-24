@@ -1,0 +1,26 @@
+{
+  "name": "@desco/front-to-sequelize",
+  "version": "1.0.0",
+  "description": "Allows Sequelize JS to interpret information passed through the frontend",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/desco-npm/front-to-sequelize"
+  },
+  "keywords": [
+    "sequelize",
+    "frontend",
+    "query",
+    "querystring",
+    "json",
+    "front"
+  ],
+  "author": "Rafael A. R. Dias <eu@diasrafael.com.br>",
+  "license": "ISC",
+  "dependencies": {
+    "is-array": "^1.0.1",
+    "is-object": "^1.0.2",
+    "object.map": "^1.0.1",
+    "sequelize": "^6.5.1"
+  }
+}
